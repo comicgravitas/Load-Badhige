@@ -1,0 +1,5 @@
+{
+  "name": "SheetSpend - Smart Transaction Tracker",
+  "description": "A professional transaction management and visualization dashboard that synchronizes with Google Sheets in real-time.",
+  "requestFramePermissions": []
+}
