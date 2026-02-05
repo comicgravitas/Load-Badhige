@@ -1,4 +1,3 @@
-
 import { Transaction } from '../types';
 
 export class GoogleSheetsService {
@@ -28,14 +27,18 @@ export class GoogleSheetsService {
       
       const data = await response.json();
       
-      // Map data and ensure every item has a valid rowId
+      // Map data and ensure every item has a valid rowId and correct types
       return data.map((item: any, index: number) => {
         const amountValue = typeof item.amount === 'string' ? parseFloat(item.amount.replace(/[^0-9.-]+/g,"")) : item.amount;
+        const safeName = String(item.name || '');
+        const safeCategory = String(item.category || (sheetName === 'Category' ? (item.date || item.name || '') : ''));
+
         return {
-          ...item,
           rowId: item.rowId || (index + 2),
+          date: String(item.date || ''),
           amount: isNaN(amountValue) ? 0 : amountValue,
-          category: item.category || (sheetName === 'Category' ? (item.date || item.name) : undefined)
+          name: safeName,
+          category: safeCategory
         };
       });
     } catch (error) {
@@ -55,8 +58,8 @@ export class GoogleSheetsService {
         sheet: sheetName,
         date: `'${transaction.date}`, 
         amount: Number(transaction.amount), 
-        name: transaction.name,
-        category: transaction.category || ''
+        name: String(transaction.name || ''),
+        category: String(transaction.category || '')
       };
 
       await fetch(url, {

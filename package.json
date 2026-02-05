@@ -15,7 +15,9 @@
     "lucide-react": "^0.463.0",
     "recharts": "^2.13.3",
     "clsx": "^2.1.1",
-    "tailwind-merge": "^2.5.5"
+    "tailwind-merge": "^2.5.5",
+    "jspdf": "^2.5.2",
+    "jspdf-autotable": "^3.8.2"
   },
   "devDependencies": {
     "@types/react": "^19.0.0",
